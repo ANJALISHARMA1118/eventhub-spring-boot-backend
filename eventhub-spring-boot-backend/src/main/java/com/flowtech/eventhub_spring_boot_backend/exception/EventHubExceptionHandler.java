@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class EventHubExceptionHandler {
 
+	
 	@ExceptionHandler(value = RuntimeException.class)
-	public ResponseEntity<?> runTimeExceptionHandler(RuntimeException exception){
+	public ResponseEntity<?> runTimeExcetionHandler(RuntimeException exception){
+		return ResponseEntity.ok(exception.getMessage());
+	}
+	
+	@ExceptionHandler(value = TicketNotAvailableException.class)
+	public ResponseEntity<?> ticketNotAvailableExceptionHandler(TicketNotAvailableException exception){
 		return ResponseEntity.ok(exception.getMessage());
 	}
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,23 +18,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name="users")
+@Table(name = "users")
 @Entity
 public class User {
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY,generator="user")
-@SequenceGenerator(sequenceName = "user", name="user_seq", initialValue = 5001)
-private Integer id;
-private String name;
-private String email;
-private String password;
-private Long phone;
 
-@CreationTimestamp
-private LocalDate createdAt;
-
-@ManyToOne
-@JoinColumn(name = "role-id")
-private Role role;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator = "user")
+	@SequenceGenerator(sequenceName = "user",name = "user_seq",initialValue = 5001)
+	private Integer id;
+	private String name;
+	@Column(unique = true)
+	private String email;
+	private String password;
+	@Column(unique = true)
+	private Long phone;
+	@CreationTimestamp
+	private LocalDate createdAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "role-id")
+	private Role role;
 }
